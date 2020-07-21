@@ -25,9 +25,9 @@ public class RestController {
     public Rest detail(@PathVariable("id") Long id){
 
         // 일일히 객체를 생성해서 ArrayList에 넣는 것이 아니라 따로 repository를 만들어 거기에서 찾는다.
-        Rest restaurants = repository.finalById(id);
+        Rest restaurant = repository.finalById(id);
 
-        return restaurants;
+        return restaurant;
     }
 
 }
