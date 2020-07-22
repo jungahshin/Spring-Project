@@ -1,18 +1,18 @@
 package springproject.restaurant.interfaces;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import springproject.restaurant.domain.Rest;
 import springproject.restaurant.domain.RestRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
-    private RestRepository repository = new RestRepository();
+    @Autowired // 알아서 RestRepository로 가서 객체를 생성해준다. (구현체가 아닌 interface를 쓴다.)
+    private RestRepository repository;
 
     @GetMapping("/restaurants")
     public List<Rest> list(){

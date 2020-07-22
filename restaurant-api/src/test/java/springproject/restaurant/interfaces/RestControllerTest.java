@@ -4,8 +4,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import springproject.restaurant.domain.RestRepository;
+import springproject.restaurant.domain.RestRepositoryImpl;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -19,6 +22,12 @@ public class RestControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    // SpyBeam : 의존성 주입!(Spring의 특징) -> 사용해야 하는 객체를 다양하게 변경할 수 있다.
+    // 기존에 controller는 직접적으로 repository에 의존을 하고 있었는데 이러한 의존성을 분리해주었다.
+    // 직접 구현체인 'RestRepositoryImpl'를 만들고 그 안에 있던 메소드를 interface인 'RestRepository'로 분리해주었다.
+    @SpyBean(RestRepositoryImpl.class)
+    private RestRepository restaurantRepository;
 
     @Test
     public void list() throws Exception {
