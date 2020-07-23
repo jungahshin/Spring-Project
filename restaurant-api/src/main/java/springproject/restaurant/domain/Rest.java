@@ -1,10 +1,16 @@
 package springproject.restaurant.domain;
 
+import org.springframework.cglib.core.TypeUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Rest {
 
     private final String name;
     private final long id;
     private final String city;
+    private List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
     public Rest(long id, String name, String city) {
         this.id = id;
@@ -26,4 +32,18 @@ public class Rest {
         return name+" in "+city;
     }
 
+    public List<MenuItem> getMenuItems(){
+        return menuItems;
+    }
+
+    public void addMenuItem(MenuItem menuItem) {
+        menuItems.add(menuItem);
+
+    }
+
+    public void setMenuItems(List<MenuItem> meuItems) {
+        for(MenuItem menuItem:meuItems){
+            addMenuItem(menuItem);
+        }
+    }
 }
