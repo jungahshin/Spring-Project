@@ -35,7 +35,7 @@ public class RestController {
     @GetMapping("/restaurants/{id}")
     public Rest detail(@PathVariable("id") Long id){
 
-        // 기본 레스토랑 정보 + 메뉴 정보 모두 제공
+        // 기본 레스토랑 정보 + 메뉴 정보 모두 제공 -> 간단하게 restaurantRepository와 menuItemRepository가 아닌, restaurantService 하나로 해결했다.
         Rest restaurant = restaurantService.getRestaurant(id);
 
         // 일일히 객체를 생성해서 ArrayList에 넣는 것이 아니라 따로 repository를 만들어 거기에서 찾는다.
