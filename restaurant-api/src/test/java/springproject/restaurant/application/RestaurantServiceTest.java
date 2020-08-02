@@ -2,19 +2,25 @@ package springproject.restaurant.application;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import springproject.restaurant.domain.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
+import static org.mockito.BDDMockito.given;
 
 public class RestaurantServiceTest {
 
     private RestaurantService restaurantService;
 
+    @Mock
     private RestRepository restaurantRepository;
 
+    @Mock
     private MenuItemRepository menuItemRepository;
 
     // Autowired를 통해 객체를 주입할 수 있지만, 일반적인 test환경에서는 의존 관계를 주입할 수 가 없다.
@@ -22,11 +28,36 @@ public class RestaurantServiceTest {
     // @Before -> 모든 test가 실행되기 전에 반드시 실행되는 부분이다.
     @Before
     public void setUp(){
-        restaurantRepository = new RestRepositoryImpl();
-        menuItemRepository = new MenuItemRepositoryImpl();
+        //가짜 객체(@Mock)들을 초기화한다.
+        MockitoAnnotations.initMocks(this);
 
-        restaurantService = new RestaurantService(restaurantRepository ,menuItemRepository);
+        // 마찬가지로, RestaurantService에서 Repository의 가짜 객체를 만들어서 사용한다.
+//        restaurantRepository = new RestRepositoryImpl();
+//        menuItemRepository = new MenuItemRepositoryImpl();
 
+
+        mockRestaurantRepository();
+        mockMenuItemRepository();
+
+        restaurantService = new RestaurantService(
+                restaurantRepository ,menuItemRepository);
+
+    }
+
+    private void mockMenuItemRepository() {
+        List<MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new MenuItem("Kimchi"));
+
+        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
+    }
+
+    private void mockRestaurantRepository() {
+        List<Rest> restaurants = new ArrayList<>();
+        Rest restaurant = new Rest(1004L, "Bob zip", "Seoul");
+        restaurants.add(restaurant);
+
+        given(restaurantRepository.finalAll()).willReturn(restaurants);
+        given(restaurantRepository.finalById(1004L)).willReturn(restaurant);
     }
 
     @Test

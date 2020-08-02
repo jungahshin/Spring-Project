@@ -66,6 +66,15 @@ public class RestControllerTest {
 
     @Test
     public void detail() throws Exception {
+        Rest restaurant1 = new Rest(1004L, "Bob zip", "Seoul");
+        Rest restaurant2 = new Rest(2020L, "Cyber Food", "Seoul");
+
+        restaurant1.addMenuItem(new MenuItem("Kimchi"));
+        restaurant2.addMenuItem(new MenuItem("Kimchi"));
+
+        given(restaurantService.getRestaurant(1004L)).willReturn(restaurant1);
+        given(restaurantService.getRestaurant(2020L)).willReturn(restaurant2);
+
         mvc.perform(get("/restaurants/1004"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
