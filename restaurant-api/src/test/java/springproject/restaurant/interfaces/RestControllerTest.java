@@ -17,8 +17,8 @@ import java.util.List;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 //control+option+o -> 쓸데 없는 것들을 다 없애 준다.
 @RunWith(SpringRunner.class)
@@ -98,6 +98,15 @@ public class RestControllerTest {
                 .andExpect(content().string(
                         containsString("Kimchi"
                 )));
+    }
+
+    @Test
+    public void create() throws Exception {
+        mvc.perform(post("/restaurants"))
+                .andExpect(status().isCreated())
+                .andExpect(header().string("location", "/restaurants/1234"))
+                .andExpect(content().string("{}"));
+
     }
 
 }
