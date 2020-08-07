@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import springproject.restaurant.application.RestaurantService;
 import springproject.restaurant.domain.MenuItem;
 import springproject.restaurant.domain.MenuItemRepository;
@@ -54,8 +55,15 @@ public class RestController {
     }
 
     @PostMapping("/restaurants")
-    public ResponseEntity<?> create() throws URISyntaxException {
-        URI location = new URI("/restaurants/1234");
+    public ResponseEntity<?> create(@RequestBody Rest resource) throws URISyntaxException {
+        // 원래는 지정하는 것이 아니라, 변수로 지정해서 받아와야 한다.
+        String name = resource.getName();
+        String city = resource.getCity();
+
+        Rest restaurant = new Rest(1234L, name, city);
+        restaurantService.addRestaurant(restaurant);
+
+        URI location = new URI("/restaurants/" + restaurant.getId());
         return ResponseEntity.created(location).body("{}");
     }
 

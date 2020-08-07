@@ -7,10 +7,12 @@ import java.util.List;
 
 public class Rest {
 
-    private final String name;
-    private final long id;
-    private final String city;
+    private String name;
+    private long id;
+    private String city;
     private List<MenuItem> menuItems = new ArrayList<MenuItem>();
+
+    public Rest(){ }
 
     public Rest(long id, String name, String city) {
         this.id = id;

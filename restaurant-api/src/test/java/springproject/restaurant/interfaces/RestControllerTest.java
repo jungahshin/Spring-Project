@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import springproject.restaurant.application.RestaurantService;
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.StringContains.containsString;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -102,11 +105,18 @@ public class RestControllerTest {
 
     @Test
     public void create() throws Exception {
-        mvc.perform(post("/restaurants"))
+        //여기에 실제로 restaurant을 추가하는 작업이 필요하다.
+//        Rest restaurant = new Rest(1234L, "BeRyoung", "Seoul");
+
+        mvc.perform(post("/restaurants")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\" : \"BeRyong\", \"city\" : \"Seoul\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("location", "/restaurants/1234"))
                 .andExpect(content().string("{}"));
 
+        // 나중에 실행이 되는지 확인하기
+        verify(restaurantService).addRestaurant(any());
     }
 
 }
