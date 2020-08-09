@@ -39,7 +39,8 @@ public class RestaurantService {
         return restaurant;
     }
 
-    public void addRestaurant(Rest restaurant) {
-        //
+    public Rest addRestaurant(Rest restaurant) {
+        restaurant.setId(1004L);
+        return restaurant;
     }
 }

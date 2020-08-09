@@ -14,10 +14,19 @@ public class Rest {
 
     public Rest(){ }
 
+    public Rest(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
+
     public Rest(long id, String name, String city) {
         this.id = id;
         this.city = city;
         this.name = name;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Long getId() { return id; }
@@ -48,4 +57,5 @@ public class Rest {
             addMenuItem(menuItem);
         }
     }
+
 }
