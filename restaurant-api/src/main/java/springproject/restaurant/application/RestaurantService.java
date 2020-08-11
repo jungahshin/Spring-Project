@@ -40,7 +40,6 @@ public class RestaurantService {
     }
 
     public Rest addRestaurant(Rest restaurant) {
-        restaurant.setId(1004L);
-        return restaurant;
+        return restaurantRepository.save(restaurant);
     }
 }

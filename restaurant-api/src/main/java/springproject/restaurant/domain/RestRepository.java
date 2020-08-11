@@ -6,4 +6,6 @@ public interface RestRepository {
     List<Rest> finalAll();
 
     Rest finalById(Long id);
+
+    Rest save(Rest restaurant);
 }

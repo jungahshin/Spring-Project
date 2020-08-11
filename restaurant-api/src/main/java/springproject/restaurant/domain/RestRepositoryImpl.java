@@ -28,4 +28,11 @@ public class RestRepositoryImpl implements RestRepository {
                 .findFirst()
                 .orElse(null); // id값과 일치하는 객체가 없다면 그냥 null로 반환해준다.
     }
+
+    @Override
+    public Rest save(Rest restaurant) {
+        restaurant.setId(1234);
+        restaurants.add(restaurant);
+        return restaurant;
+    }
 }
