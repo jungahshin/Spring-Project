@@ -2,14 +2,24 @@ package springproject.restaurant.domain;
 
 import org.springframework.cglib.core.TypeUtils;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Rest {
 
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String name;
-    private long id;
     private String city;
+
+    @Transient
     private List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
     public Rest(){ }
@@ -19,13 +29,13 @@ public class Rest {
         this.city = city;
     }
 
-    public Rest(long id, String name, String city) {
+    public Rest(Long id, String name, String city) {
         this.id = id;
         this.city = city;
         this.name = name;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

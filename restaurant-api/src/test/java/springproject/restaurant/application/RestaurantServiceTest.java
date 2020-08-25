@@ -8,6 +8,7 @@ import springproject.restaurant.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -45,20 +46,22 @@ public class RestaurantServiceTest {
 
     }
 
-    private void mockMenuItemRepository() {
-        List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem("Kimchi"));
-
-        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
-    }
-
     private void mockRestaurantRepository() {
         List<Rest> restaurants = new ArrayList<>();
         Rest restaurant = new Rest(1004L, "Bob zip", "Seoul");
         restaurants.add(restaurant);
 
-        given(restaurantRepository.finalAll()).willReturn(restaurants);
-        given(restaurantRepository.finalById(1004L)).willReturn(restaurant);
+        given(restaurantRepository.findAll()).willReturn(restaurants);
+
+        given(restaurantRepository.findById(1004L))
+                .willReturn(Optional.of(restaurant));
+    }
+
+    private void mockMenuItemRepository() {
+        List<MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new MenuItem("Kimchi"));
+
+        given(menuItemRepository.findAllByRestaurantId(1004L)).willReturn(menuItems);
     }
 
     @Test

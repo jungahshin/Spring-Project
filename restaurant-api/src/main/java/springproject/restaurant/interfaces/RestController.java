@@ -60,7 +60,7 @@ public class RestController {
         String name = resource.getName();
         String city = resource.getCity();
 
-        Rest restaurant = new Rest(1234L, name, city);
+        Rest restaurant = new Rest(name, city);
         restaurantService.addRestaurant(restaurant);
 
         URI location = new URI("/restaurants/" + restaurant.getId());

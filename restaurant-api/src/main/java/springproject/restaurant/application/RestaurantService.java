@@ -25,13 +25,13 @@ public class RestaurantService {
     }
 
     public List<Rest> getRestaurants() {
-        List<Rest> restaurants = restaurantRepository.finalAll();
+        List<Rest> restaurants = restaurantRepository.findAll();
 
         return restaurants;
     }
 
     public Rest getRestaurant(Long id){
-        Rest restaurant = restaurantRepository.finalById(id);
+        Rest restaurant = restaurantRepository.findById(id).orElse(null);
 
         List<MenuItem> meuItems = menuItemRepository.findAllByRestaurantId(id);
         restaurant.setMenuItems(meuItems);
