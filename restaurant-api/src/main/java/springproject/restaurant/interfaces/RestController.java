@@ -2,10 +2,7 @@ package springproject.restaurant.interfaces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import springproject.restaurant.application.RestaurantService;
 import springproject.restaurant.domain.MenuItem;
 import springproject.restaurant.domain.MenuItemRepository;
@@ -16,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@CrossOrigin
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
 
