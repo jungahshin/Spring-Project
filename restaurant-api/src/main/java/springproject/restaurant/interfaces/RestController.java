@@ -65,4 +65,10 @@ public class RestController {
         return ResponseEntity.created(location).body("{}");
     }
 
+    @PatchMapping("restaurants/{id}")
+    public String update(@PathVariable("id") Long id,
+                         @RequestBody Rest restaurant){
+        return "{}";
+    }
+
 }

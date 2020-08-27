@@ -19,8 +19,7 @@ import static org.hamcrest.core.StringContains.containsString;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 //control+option+o -> 쓸데 없는 것들을 다 없애 준다.
@@ -48,6 +47,7 @@ public class RestControllerTest {
 //    @SpyBean(MenuItemRepositoryImpl.class)
 //    private MenuItemRepository menuItemRepository;
 
+    // 가게 목록
     @Test
     public void list() throws Exception {
         //따라서, controller는 restaurantService를 활용한다는 자체에 집중할 뿐이지, restaurantService가 어떻게 작동하는 지는 controller의 관심사가 아니다!
@@ -64,9 +64,9 @@ public class RestControllerTest {
                 .andExpect(content().string(
                         containsString("\"name\":\"Joker\"")
                 ));
-
     }
 
+    // 가게 상세
     @Test
     public void detail() throws Exception {
         Rest restaurant1 = new Rest(1004L, "Bob zip", "Seoul");
@@ -103,6 +103,7 @@ public class RestControllerTest {
                 )));
     }
 
+    // 가게 추가
     @Test
     public void create() throws Exception {
         //여기에 실제로 restaurant을 추가하는 작업이 필요하다.
@@ -117,6 +118,16 @@ public class RestControllerTest {
 
         // 나중에 실행이 되는지 확인하기
         verify(restaurantService).addRestaurant(any());
+    }
+
+    // 가게 수정
+    @Test
+    public void update() throws Exception{
+        mvc.perform(patch("/restaurants/1004")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"Joker Bar\", \"city\":\"Incheon\"}"))
+                .andExpect(status().isOk());
+
     }
 
 }
